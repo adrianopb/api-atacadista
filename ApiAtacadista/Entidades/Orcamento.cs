@@ -2,8 +2,8 @@
 {
     public class Orcamento
     {
-        public int Id { get; set; }
         public string Status { get; set; }
-        public int Preco { get; set; } 
+        public int Preco { get; set; }
+        public Pedido Pedido { get; set; }
     }
 }

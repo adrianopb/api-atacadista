@@ -6,6 +6,5 @@
         public int CodigoProduto { get; set; }
         public int Quantidade { get; set; }
         public string Observacao { get; set; }
-        public Orcamento Orcamento { get; set; }
     }
 }
