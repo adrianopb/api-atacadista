@@ -10,36 +10,10 @@ namespace ApiAtacadista.Controllers
     [ApiController]
     public class PedidosController : ControllerBase
     {
-        // GET v1/pedidos
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET v1/pedidos/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST v1/pedidos
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT v1/pedidos/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] string status)
         {
-        }
-
-        // DELETE v1/pedidos/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            //TODO: 
         }
     }
 }

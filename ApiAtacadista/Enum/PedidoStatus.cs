@@ -2,7 +2,7 @@
 
 namespace ApiAtacadista.Enum
 {
-    public enum StatusPedido
+    public enum PedidoStatus
     { 
         [Display(Name="Solicitado")]
         Solicitado,

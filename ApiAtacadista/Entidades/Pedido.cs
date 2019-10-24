@@ -1,4 +1,6 @@
-﻿namespace ApiAtacadista.Entidades
+﻿using ApiAtacadista.Enum;
+
+namespace ApiAtacadista.Entidades
 {
     public class Pedido
     {
@@ -6,5 +8,6 @@
         public int CodigoProduto { get; set; }
         public int Quantidade { get; set; }
         public string Observacao { get; set; }
+        public PedidoStatus PedidoStatus { get; set; }
     }
 }

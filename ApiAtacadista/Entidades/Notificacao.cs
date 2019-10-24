@@ -4,6 +4,6 @@
     {
         public int Id  { get; set; }
         public int IdPedido  { get; set; }
-        public int IdOrcamento  { get; set; }
+        public int? IdOrcamento  { get; set; }
     }
 }

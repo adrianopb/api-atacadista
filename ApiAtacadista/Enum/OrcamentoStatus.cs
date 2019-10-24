@@ -2,7 +2,7 @@
 
 namespace ApiAtacadista.Enum
 {
-    public enum StatusOrcamento
+    public enum OrcamentoStatus
     {
         [Display(Name="Pendente")]
         Pendente,

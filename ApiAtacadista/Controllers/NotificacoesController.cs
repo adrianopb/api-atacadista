@@ -1,4 +1,5 @@
 ﻿using ApiAtacadista.Entidades;
+using ApiAtacadista.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiAtacadista.Controllers
@@ -7,11 +8,13 @@ namespace ApiAtacadista.Controllers
     [ApiController]
     public class NotificacoesController : Controller
     {
+        private NotificacaoNegocio _notificacaoNegocio = new NotificacaoNegocio();
+        
         [HttpPost]
         public IActionResult Post([FromBody]Pedido pedido)
         {
-            
-            //TODO: função de criar notificação -> modelo : notificacao -> paramentro id pedido 
+            //Função de criar notificação
+            Notificacao notificacao = _notificacaoNegocio.CriarNotificacao(pedido.Id);
 
             //TODO: opcional -> verificar de produto existe (pelo CodigoProduto)
 
