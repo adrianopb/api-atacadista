@@ -1,4 +1,7 @@
-﻿using ApiAtacadista.Entidades;
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using ApiAtacadista.Entidades;
 using ApiAtacadista.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +12,27 @@ namespace ApiAtacadista.Controllers
     public class OrcamentosController : Controller
     {
         private OrcamentoNegocio _orcamentoNegocio = new OrcamentoNegocio();
-        private NotificacaoNegocio _notificacaoNegocio = new NotificacaoNegocio();
+//        private NotificacaoNegocio _notificacaoNegocio = new NotificacaoNegocio();
+        private static readonly HttpClient client = new HttpClient();
+        private readonly string _URLCriacaoOrcamento = "https://localhost:5000/v1/orcamento";
         
-        [HttpPost("/pedido/{idPedido}/orcamento")]
-        public IActionResult Post([FromRoute]int idPedido, [FromBody]int preco)
+        [HttpPost("/pedido/{idPedido}")]
+        public async Task<ActionResult<Orcamento>> Post([FromRoute]int idPedido, [FromBody]int preco)
         {
             //Função de criar orcamento
             Orcamento orcamento = _orcamentoNegocio.CriarOrcamento(idPedido, preco);
             
-            //TODO: chamar função de verificar se notificação existe
-            
             //Função de atualizar notificação -> modelo : notificação -> paramentro id orcamento
-            Notificacao notificacao = _notificacaoNegocio.AtualizarNotificacaoOrcamento(idPedido, orcamento.Id);
+//            Notificacao notificacao = _notificacaoNegocio.AtualizarNotificacaoOrcamento(idPedido, orcamento.Id);
 
-            //TODO: chamar função de criar a notificação na API do lojista
+            //Função de criar o orçamento na API do lojista
+            var respostaOrcamento = await client.PostAsJsonAsync(_URLCriacaoOrcamento, orcamento);
+            var respostaOrcamentoString = await respostaOrcamento.Content.ReadAsStringAsync();
+
+            if (!respostaOrcamento.IsSuccessStatusCode)
+            {
+                throw new Exception(respostaOrcamentoString);
+            }
             
             return Ok();
         }

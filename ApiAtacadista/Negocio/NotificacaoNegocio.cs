@@ -25,7 +25,9 @@ namespace ApiAtacadista.Negocios
             };
 
             //Pesquisar na lista
-//            Notificacao notificacao = Notificacao.Where(idOrcamento);
+//            Notificacao notificacao = Notificacao.Where(idOrcamento && idPedido);
+
+            notificacao.IdOrcamento = idOrcamento;
 
             return notificacao;
         }

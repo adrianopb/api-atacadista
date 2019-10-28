@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ApiAtacadista.Enum;
+using ApiAtacadista.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiAtacadista.Controllers
@@ -10,10 +8,13 @@ namespace ApiAtacadista.Controllers
     [ApiController]
     public class PedidosController : ControllerBase
     {
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string status)
+        private PedidoNegocio _pedidoNegocio = new PedidoNegocio();
+        
+        [HttpPut("{id}/status")]
+        public ActionResult Put([FromRoute]int id, [FromBody]PedidoStatus status)
         {
-            //TODO: 
+            //TODO: função de atualizar o status do pedido
+            return Ok(_pedidoNegocio.AtualizarPedidoStatus(id, status));
         }
     }
 }
