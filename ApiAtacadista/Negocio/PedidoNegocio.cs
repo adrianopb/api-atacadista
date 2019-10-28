@@ -13,6 +13,8 @@ namespace ApiAtacadista.Negocios
                 Id = 1,
                 CodigoProduto = pedido.CodigoProduto,
                 Observacao = pedido.Observacao,
+                PedidoStatus = PedidoStatus.Solicitado,
+                Quantidade = pedido.Quantidade
             };
 
             return novoPedido;

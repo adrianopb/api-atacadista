@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using ApiAtacadista.Entidades;
+using ApiAtacadista.Enum;
 using ApiAtacadista.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +22,6 @@ namespace ApiAtacadista.Controllers
         {
             //Função de criar orcamento
             Orcamento orcamento = _orcamentoNegocio.CriarOrcamento(idPedido, preco);
-            
-            //Função de atualizar notificação -> modelo : notificação -> paramentro id orcamento
-//            Notificacao notificacao = _notificacaoNegocio.AtualizarNotificacaoOrcamento(idPedido, orcamento.Id);
 
             //Função de criar o orçamento na API do lojista
             var respostaOrcamento = await client.PostAsJsonAsync(_URLCriacaoOrcamento, orcamento);
@@ -34,15 +32,16 @@ namespace ApiAtacadista.Controllers
                 throw new Exception(respostaOrcamentoString);
             }
             
-            return Ok();
+            return Ok(respostaOrcamento);
         }
         
-        [HttpPost]
-        public IActionResult Put([FromBody]Pedido pedido, string status)
+        [HttpPut("{id}")]
+        public IActionResult Put([FromRoute]int id, [FromBody]OrcamentoStatus status)
         {
             //TODO: função de verificar status orcamento = pendente (genérico) -> modelo : orcamento -> paramentros id orcamento, string status
-            
-            //TODO: função de atualizar orcamento -> modelo : orcamento -> paramentro id orcamento   (aceito)
+
+            //TODO: função de atualizar orcamento -> modelo : orcamento -> paramentro id orcamento
+            _orcamentoNegocio.AtualizarOrcamentoStatus(id, status);
             
             //TODO: função de atualizar notificação -> modelo : notificação -> paramentro id orcamento, id pedido
             

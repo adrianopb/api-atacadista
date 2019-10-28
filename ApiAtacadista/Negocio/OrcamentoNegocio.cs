@@ -18,5 +18,16 @@ namespace ApiAtacadista.Negocios
 
             return Orcamento;
         }
+        
+        public Orcamento AtualizarOrcamentoStatus(int id, OrcamentoStatus status)
+        {
+            Orcamento orcamento = new Orcamento(){};
+
+//            orcamento = Orcamento.Where(Id = id);
+
+            orcamento.Status = status;
+
+            return orcamento;
+        }
     }
 }
