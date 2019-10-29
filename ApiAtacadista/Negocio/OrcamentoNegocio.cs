@@ -5,7 +5,7 @@ namespace ApiAtacadista.Negocios
 {
     public class OrcamentoNegocio
     {
-        public Orcamento CriarOrcamento(int idPedido, int preco)
+        public Orcamento CriarOrcamento(int idPedido, Preco preco)
         {
             Orcamento Orcamento = new Orcamento()
             {

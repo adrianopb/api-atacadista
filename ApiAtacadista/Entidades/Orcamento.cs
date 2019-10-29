@@ -6,7 +6,7 @@ namespace ApiAtacadista.Entidades
     {
         public int Id { get; set; }
         public OrcamentoStatus Status { get; set; }
-        public int Preco { get; set; }
+        public Preco Preco { get; set; }
         public int IdPedido { get; set; }
     }
 }
