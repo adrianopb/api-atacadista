@@ -43,7 +43,7 @@ namespace ApiAtacadista.Controllers
         }
         
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]OrcamentoStatus status)
+        public IActionResult Put(int id, [FromBody]int status)
         {
             //Função de atualizar orcamento -> modelo : orcamento -> paramentro id orcamento
             _orcamentoNegocio.AtualizarOrcamentoStatus(id, status);

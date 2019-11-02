@@ -41,6 +41,21 @@ namespace ApiAtacadista.Negocios
             };
         }
         
+        public Pedido AtualizarPedidoStatus(int idPedido, int status)
+        {
+            Pedido pedido = BuscarPedido(idPedido);
+            pedido.PedidoStatus = (PedidoStatus)status;
+
+            return pedido;
+        }
+
+        public Pedido BuscarPedido(int idPedido)
+        {
+            Pedido pedido = ListaPedido().SingleOrDefault(q => q.Id == idPedido);
+
+            return pedido;
+        }
+        
         
         public Pedido CriarPedido(Pedido pedido)
         {
@@ -55,21 +70,6 @@ namespace ApiAtacadista.Negocios
             };
 
             return novoPedido;
-        }
-        
-        public Pedido AtualizarPedidoStatus(int idPedido, PedidoStatus status)
-        {
-            Pedido pedido = this.BuscarPedido(idPedido);
-            pedido.PedidoStatus = status;
-
-            return pedido;
-        }
-
-        public Pedido BuscarPedido(int idPedido)
-        {
-            Pedido pedido = this.ListaPedido().SingleOrDefault(q => q.Id == idPedido);
-
-            return pedido;
         }
     }
 }
