@@ -2,8 +2,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using ApiAtacadista.Entidades;
-using ApiAtacadista.Enum;
 using ApiAtacadista.Negocios;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiAtacadista.Controllers
@@ -18,8 +18,14 @@ namespace ApiAtacadista.Controllers
         private static readonly HttpClient client = new HttpClient();
         
         private readonly string _URLCriacaoOrcamento = "https://localhost:5000/v1/orcamento";
-        
-        [HttpPost("/v1/pedidos/{id}/orcamentos")]
+
+        /// <summary>
+        /// Criação de proposta de orçamento para um pedido
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPost("/v1/orcamentos/pedidos/{id}")]
         public async Task<ActionResult<Orcamento>> Post(int id, [FromBody]Preco preco)
         {
             if (_pedidoNegocio.BuscarPedido(id) == null)
@@ -29,6 +35,11 @@ namespace ApiAtacadista.Controllers
             
             //Função de criar orcamento
             Orcamento orcamento = _orcamentoNegocio.CriarOrcamento(id, preco);
+
+            if (orcamento == null)
+            {
+                return StatusCode(500);
+            }
 
             //Função de criar o orçamento na API do lojista
             var respostaOrcamento = await client.PostAsJsonAsync(_URLCriacaoOrcamento, orcamento);
@@ -42,9 +53,19 @@ namespace ApiAtacadista.Controllers
             return Ok(respostaOrcamento);
         }
         
+        /// <summary>
+        /// Atualização de status de orçamento (aceito ou rejeitado)
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]int status)
         {
+            if (_orcamentoNegocio.BuscarOrcamento(id) == null)
+            {
+                return NotFound();
+            }
+            
             //Função de atualizar orcamento -> modelo : orcamento -> paramentro id orcamento
             _orcamentoNegocio.AtualizarOrcamentoStatus(id, status);
             

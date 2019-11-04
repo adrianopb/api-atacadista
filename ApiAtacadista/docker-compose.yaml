@@ -1,0 +1,9 @@
+﻿version: '3'
+
+services:
+  apiatacadista-2-2-alpine:
+    image: apiatacadista-sdk-2-2-alpine
+    build:
+      context: .
+    ports:
+      - "15000:80"
